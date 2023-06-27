@@ -68,12 +68,12 @@ Implement any of the following features to improve the application:
 
 #### Handling API Requests
 
-- [ ] Create a `constants.js` file at the root of the project that exports the following variables:
+- [X] Create a `constants.js` file at the root of the project that exports the following variables:
   - [ ] `PRODUCTION_API_BASE_URL` - set to whatever URL the production API is deployed at
   - [ ] `DEVELOPMENT_API_BASE_URL` - set to `"http://localhost:3001"` for development
   - [ ] `API_BASE_URL` - If `process.env.NODE_ENV` is `production`, set this to `PRODUCTION_API_BASE_URL`, otherwise set it to `DEVELOPMENT_API_BASE_URL`
-- [ ] Create a `services` directory at the root of the project.
-- [ ] Inside the `services` directory, create an `apiClient.js` file
+- [X] Create a `services` directory at the root of the project.
+- [X] Inside the `services` directory, create an `apiClient.js` file
 - [ ] In the `apiClient.js` file, import the `axios` package and the `API_BASE_URL` constant from the `constants.js` file.
 - [ ] Define a new class in that file called `ApiClient`.
   - [ ] Give it a constructor function that accepts a single parameter - `remoteHostUrl`. The constructor should attach the `remoteHostUrl` parameter to a new instance with `this.remoteHostUrl = remoteHostUrl`. It should also set `this.token = null`.
@@ -86,7 +86,7 @@ Implement any of the following features to improve the application:
   - [ ] **Add as many other methods as needed when making API requests.**
 
 #### Manage Authentication State
-
+ 
 Update the `App` component to manage authentication state:
 
 - [ ] Create a state variable called `appState` with a function called `setAppState` to update that state.
