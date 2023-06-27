@@ -1,18 +1,31 @@
+import * as React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
+import LandingPage from "../LandingPage/LandingPage";
 
 function App() {
 
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <div className="app">
+      // routes to pages on site
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          {/* <Route path="/login" element={} />
+          <Route path="/register" element={} />
+          <Route path="/activity" element={} />
+          <Route path="/nutrition/*" element={} />
+          <Route path="/*" element={} /> */}
+      </Routes>
+      </BrowserRouter>
+      </div>
   )
 }
 
 export default App
 
 // [ ] Build the `App` component to:
-//   - [ ] Be wrapped by an element with the class name of `app`
+//   - [X] Be wrapped by an element with the class name of `app`
 //   - [ ] Contain the routes for the app
 //   - [ ] Render the `Navbar` component on every route
 //   - [ ] Render a `BrowserRouter` component that contains a `Routes` component with the following routes:
