@@ -1,4 +1,22 @@
+import * as React from "react"
+import "./Navlinks.css"
 
+export default function Navlinks() {
+  return (
+      <div className="navcontent">
+        <div className="logo">
+
+        </div>
+        <ul className="pagelinks">
+          <li><a href="/">Home</a></li>
+          <li><a href="/register">Sign Up</a></li>
+          <li><a href="/activity">Activity</a></li>
+          <li><a href="/nutrition">Nutrition</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </div>        
+  )
+}
 // - [ ] Build the **`NavLinks`** component to:
 //   - [ ] Render JSX that is wrapped by an element with the class name of `nav-links`
 //   - [ ] Render a `Link` element from `react-router-dom` for:

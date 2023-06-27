@@ -1,4 +1,33 @@
+import * as React from "react";
+import './RegistrationForm.css'
 
+function RegistrationForm() {
+
+  return (
+    <div className="registration-form">
+        <h1>Become a Member Now!</h1>
+    <form className="registration-form">
+        <label for="email">Email:</label>
+        <input className="form-input" type="email" placeholder="Start typing email..."></input>
+        <label for="email">First Name:</label>
+
+        <input className="form-input" type="text" placeholder="Start typing first name..."></input>
+        <label for="email">Last Name:</label>
+        <input className="form-input" type="text" placeholder="Start typing last name..."></input>
+
+        <label for="password">Password:</label>
+        <input className="form-input" type="password" placeholder="Start typing password..."></input>
+        <label for="password">Confirm Password:</label>
+        <input className="form-input" type="password" placeholder="Re-type password..."></input>
+      </form>
+      <button className="submit-login">Login</button>
+
+        <p>Have an account? <a href="/login">Login</a></p>
+      </div>
+  )
+}
+
+export default RegistrationForm
 
 
 

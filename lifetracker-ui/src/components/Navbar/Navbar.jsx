@@ -1,3 +1,15 @@
+import * as React from "react"
+import "./Navbar.css"
+import Navlinks from "../Navlinks/Navlinks"
+
+export default function Navbar() {
+  return (
+    <nav className="navbar">
+      <Navlinks />
+    </nav>
+        
+  )
+}
 
 
 

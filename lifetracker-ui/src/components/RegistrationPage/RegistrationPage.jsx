@@ -1,4 +1,16 @@
+import * as React from "react";
+import RegistrationForm from "../RegistrationForm/RegistrationForm";
 
+function RegistrationPage() {
+
+  return (
+    <div className="registration-page">
+    <RegistrationForm />
+      </div>
+  )
+}
+
+export default RegistrationPage
 
 
 

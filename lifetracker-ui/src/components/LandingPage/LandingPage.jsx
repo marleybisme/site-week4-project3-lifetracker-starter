@@ -1,9 +1,11 @@
 import * as React from "react";
+import Navbar from "../Navbar/Navbar";
 
 function LandingPage() {
 
   return (
     <div className="app">
+      <Navbar />
     <h1>Hello</h1>
       </div>
   )
