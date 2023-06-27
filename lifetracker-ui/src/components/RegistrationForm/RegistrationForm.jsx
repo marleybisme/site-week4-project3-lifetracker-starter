@@ -1,9 +1,11 @@
 import * as React from "react";
 import './RegistrationForm.css'
+import Navbar from "../Navbar/Navbar";
 
 function RegistrationForm() {
 
   return (
+    <> <Navbar />
     <div className="registration-form">
         <h1>Become a Member Now!</h1>
     <form className="registration-form">
@@ -20,10 +22,11 @@ function RegistrationForm() {
         <label for="password">Confirm Password:</label>
         <input className="form-input" type="password" placeholder="Re-type password..."></input>
       </form>
-      <button className="submit-login">Login</button>
+      <button className="submit-login">Create Account</button>
 
         <p>Have an account? <a href="/login">Login</a></p>
       </div>
+      </>
   )
 }
 

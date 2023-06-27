@@ -5,7 +5,7 @@ function LoginForm() {
 
   return (
     <div className="login-form">
-        <h1>Welcome!</h1>
+      <h1>Welcome!</h1>
     <form className="login-form">
         <label for="email">Email:</label>
         <input className="form-input" type="email" placeholder="Start typing email..."></input>

@@ -1,19 +1,25 @@
 import * as React from "react"
 import "./Navlinks.css"
+import { Link } from "react-router-dom"
+
 
 export default function Navlinks() {
   return (
       <div className="navcontent">
-        <div className="logo">
-
-        </div>
-        <ul className="pagelinks">
-          <li><a href="/">Home</a></li>
-          <li><a href="/register">Sign Up</a></li>
+         <ul className="pagelinks">
           <li><a href="/activity">Activity</a></li>
           <li><a href="/nutrition">Nutrition</a></li>
-          <li><a href="/login">Login</a></li>
         </ul>
+        <div className="logo">
+        <Link to="/">
+              <img src="https://icons.veryicon.com/png/o/food--drinks/fruits-4/banana-50.png" alt="banana icon" />
+            </Link>
+        </div>
+        <ul className="pagelinks">
+          <li><a href="/register">Sign Up</a></li>
+          <li><a href="/login">Login</a></li>
+          </ul>
+         
       </div>        
   )
 }

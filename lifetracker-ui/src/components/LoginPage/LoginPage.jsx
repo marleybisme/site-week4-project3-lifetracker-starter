@@ -1,12 +1,15 @@
 import * as React from "react";
 import LoginForm from "../LoginForm/LoginForm";
-
+import Navbar from "../Navbar/Navbar"
 function LoginPage() {
 
   return (
+    <> 
+    <Navbar />
     <div className="login-page">
     <LoginForm />
       </div>
+      </>
   )
 }
 

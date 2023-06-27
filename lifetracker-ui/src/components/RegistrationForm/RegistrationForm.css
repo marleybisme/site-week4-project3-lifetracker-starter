@@ -1,19 +1,83 @@
 .registration-form {
     display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
     flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.form-input {
-    width: 100%;
+  }
+  
+  .registration-form h1 {
+    margin-bottom: 20px;
+  }
+  
+  form.registration-form {
     display: flex;
-    position: relative;
-    isolation: isolate;
-    font-family: Arial, Helvetica, sans-serif;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  .form-input {
     padding: 10px;
-    margin: 10px;
-}
+    margin-bottom: 10px;
+    border: 1px solid #462A0A;
+    border-radius: 5px;
+  }
+  
+  .form-input[type="email"],
+  .form-input[type="text"],
+  .form-input[type="password"] {
+    width: 100%;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-row .form-input {
+    width: calc(50% - 5px);
+  }
+  
+  .form-input[type="email"]:focus,
+  .form-input[type="text"]:focus,
+  .form-input[type="password"]:focus {
+    outline: none;
+    border-color: #F6E275;
+  }
+  
+  .submit-login {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F6E275;
+    color: #462A0A;
+    cursor: pointer;
+  }
+  
+  .submit-login:hover {
+    background-color: #462A0A;
+    color: #F6E275;
+  }
+  
+  p {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  p a {
+    color: #F6E275;
+    text-decoration: none;
+  }
+  
+  p a:hover {
+    text-decoration: underline;
+  }
+  
