@@ -5,7 +5,7 @@ import Navbar from "../Navbar/Navbar";
 function RegistrationForm() {
 
   return (
-    <> <Navbar />
+    <> 
     <div className="registration-form">
         <h1>Become a Member Now!</h1>
     <form className="registration-form">

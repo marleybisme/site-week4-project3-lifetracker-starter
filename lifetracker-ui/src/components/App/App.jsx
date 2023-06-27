@@ -4,6 +4,9 @@ import './App.css'
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegistrationPage from "../RegistrationPage/RegistrationPage";
+import Navbar from "../Navbar/Navbar";
+import NotFound from "../NotFound/NotFound";
+
 
 function App() {
 
@@ -12,12 +15,12 @@ function App() {
       {/* routes to pages on site */}
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegistrationPage />} />
-          {/* <Route path="/activity" element={} />
-          <Route path="/nutrition/*" element={} />
-          <Route path="/*" element={} /> */}
+          <Route path="/" element={<><Navbar /> <LandingPage /></>} />
+          <Route path="/login" element={<><Navbar /><LoginPage /></>} />
+          <Route path="/register" element={<><Navbar /><RegistrationPage /></>} />
+          <Route path="/activity" element={<><Navbar /></>} />
+          <Route path="/nutrition/*" element={<><Navbar /></>} />
+          <Route path="/*" element={<><Navbar /><NotFound /></>} />
       </Routes>
       </BrowserRouter>
       </div>
@@ -28,8 +31,8 @@ export default App
 
 // [ ] Build the `App` component to:
 //   - [X] Be wrapped by an element with the class name of `app`
-//   - [ ] Contain the routes for the app
-//   - [ ] Render the `Navbar` component on every route
+//   - [X] Contain the routes for the app
+//   - [X] Render the `Navbar` component on every route
 //   - [ ] Render a `BrowserRouter` component that contains a `Routes` component with the following routes:
 //     - [ ] `/` - Render the `Landing` component
 //     - [ ] `/login` - Render the `LoginPage` component

@@ -5,7 +5,7 @@ function LoginPage() {
 
   return (
     <> 
-    <Navbar />
+    
     <div className="login-page">
     <LoginForm />
       </div>

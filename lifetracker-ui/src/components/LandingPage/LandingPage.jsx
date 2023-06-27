@@ -1,11 +1,11 @@
 import * as React from "react";
 import Navbar from "../Navbar/Navbar";
 import "./LandingPage.css"
-function LandingPage() {
+
+export default function LandingPage() {
 
   return (
     <div className="landing-page">
-      <Navbar />
       <div className="content">
       <div className="hero">
         <img src="https://livehealthymag.com/wp-content/uploads/2021/02/fitness-trackers-1280x854.jpg"></img>
@@ -17,9 +17,6 @@ function LandingPage() {
       </div>
   )
 }
-
-export default LandingPage
-
 
 
 
