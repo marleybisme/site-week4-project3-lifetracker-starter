@@ -8,9 +8,7 @@ const authRoutes = require("./routes/auth")
 
 const app = express()
 app.use(cors())
-// parse incoming requests with JSON payloads
 app.use(express.json())
-// log requests info
 app.use(morgan("tiny"))
 
 // routes
@@ -23,7 +21,7 @@ app.get("/", function (req, res) {
   })
 })
 
-/** Handle 404 errors -- this matches everything */
+// handles 404 errors
 app.use(function (req, res, next) {
     return next(new NotFoundError())
   })

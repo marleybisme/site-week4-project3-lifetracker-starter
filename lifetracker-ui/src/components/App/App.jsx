@@ -33,15 +33,15 @@ export default App
 //   - [X] Be wrapped by an element with the class name of `app`
 //   - [X] Contain the routes for the app
 //   - [X] Render the `Navbar` component on every route
-//   - [ ] Render a `BrowserRouter` component that contains a `Routes` component with the following routes:
-//     - [ ] `/` - Render the `Landing` component
-//     - [ ] `/login` - Render the `LoginPage` component
-//     - [ ] `/register` - Render the `RegistrationPage` component
+//   - [X] Render a `BrowserRouter` component that contains a `Routes` component with the following routes:
+//     - [X] `/` - Render the `Landing` component
+//     - [X] `/login` - Render the `LoginPage` component
+//     - [X] `/register` - Render the `RegistrationPage` component
 //     - [ ] `/activity` - Render the `ActivityPage` component **only** if the user is logged in,
 //           otherwise it renders the `AccessForbidden` component
 //     - [ ] `/nutrition/*` - Render the `NutritionPage`component **only** if the user is logged in, 
 //            otherwise it renders the`AccessForbidden` component
-//     - [ ] `*` - Anything else renders the `NotFound` component
+//     - [X] `*` - Anything else renders the `NotFound` component
 
 // Update the `App` component to manage authentication state:
 // - [ ] Create a state variable called `appState` with a function 
