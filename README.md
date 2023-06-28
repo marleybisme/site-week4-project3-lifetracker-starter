@@ -389,42 +389,42 @@ Here are the pieces of functionality that should be built out for the backend:
         - [ ] When `IS_TESTING` is `true`, the `getDatabaseUri` function should use the test database
         - [ ] Otherwise, it should combine the proper database environment variables into a database connection string if no `process.env.DATABASE_URL` environment variable exists
   - [X] Add a `config.js` file
-    - [ ] Use the `dotenv` package to parse the environment variables from the `.env` file.
+    - [X] Use the `dotenv` package to parse the environment variables from the `.env` file.
     - [ ] Export each of the environment variables from the `config.js` file until the tests pass
-    - [ ] Write a `getDatabaseUri` function so that all the tests pass
-  - [ ] Commit all work to `git`
+    - [X] Write a `getDatabaseUri` function so that all the tests pass
+  - [X] Commit all work to `git`
   - [ ] The project should now be ready to go!
 - [ ] **PostgreSQL database**
   - Time bring in a PostgreSQL database client as the application's persistence layer
   - Make sure the PostgreSQL server is running
   - Create two files at the root of the project:
-    - [ ] `lifetracker-schema.sql`
-      - [ ] This script should:
-        - [ ] Create a `users` table with the following columns:
-          - [ ] `id`
-          - [ ] `username`
-          - [ ] `password`
-          - [ ] `first_name`
-          - [ ] `last_name`
-          - [ ] `email`
-          - [ ] `created_at`
-          - [ ] `updated_at`
-        - [ ] Create a `nutrition` table with the following columns:
-          - [ ] `id`
-          - [ ] `name`
-          - [ ] `category`
-          - [ ] `calories`
-          - [ ] `image_url`
-          - [ ] `user_id`
-          - [ ] `created_at`
+    - [X] `lifetracker-schema.sql`
+      - [X] This script should:
+        - [X] Create a `users` table with the following columns:
+          - [X] `id`
+          - [X] `username`
+          - [X] `password`
+          - [X] `first_name`
+          - [X] `last_name`
+          - [X] `email`
+          - [X] `created_at`
+          - [X] `updated_at`
+        - [X] Create a `nutrition` table with the following columns:
+          - [X] `id`
+          - [X] `name`
+          - [X] `category`
+          - [X] `calories`
+          - [X] `image_url`
+          - [X] `user_id`
+          - [X] `created_at`
         - [ ] **Any other tables** that the application might depend on
-    - [ ] `lifetracker.sql`
-      - [ ] This script should:
-        - [ ] 1. Let the user know that they're about to delete the `lifetracker` database and prompt them to confirm that is what they want.
-        - [ ] 2. Drop the `lifetracker` database and then create a new `lifetracker` database, before connecting to the `lifetracker` database.
-        - [ ] 3. It should then run the `lifetracker-schema.sql` file.
+    - [X] `lifetracker.sql`
+      - [X] This script should:
+        - [X] 1. Let the user know that they're about to delete the `lifetracker` database and prompt them to confirm that is what they want.
+        - [X] 2. Drop the `lifetracker` database and then create a new `lifetracker` database, before connecting to the `lifetracker` database.
+        - [X] 3. It should then run the `lifetracker-schema.sql` file.
         - [ ] Follow the exact same steps for `1`, `2`, and `3`, but with the `lifetracker_test` database.
-  - [ ] Setup the database by running `psql -f lifetracker.sql`
+  - [X] Setup the database by running `psql -f lifetracker.sql`
   - [ ] Create a new file at the root of the project called `db.js`. In that file:
     - [ ] Import the `getDatabaseUri` function from the `config.js` file.
     - [ ] Initialize a new PostgreSQL client with the `pg` package and connect to PostgreSQL using any necessary config variables.
