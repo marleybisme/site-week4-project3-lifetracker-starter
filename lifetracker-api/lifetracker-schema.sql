@@ -5,8 +5,7 @@ CREATE TABLE users (
     firstname VARCHAR(255) NOT NULL,
     lastname VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE nutrition (
