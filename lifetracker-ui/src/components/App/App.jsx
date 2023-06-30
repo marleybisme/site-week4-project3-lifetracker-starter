@@ -9,20 +9,23 @@ import NotFound from "../NotFound/NotFound";
 
 
 function App() {
-
+  const [appState, setAppState] = React.useState({})
   return (
     <div className="app">
       {/* routes to pages on site */}
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<><Navbar /> <LandingPage /></>} />
-          <Route path="/login" element={<><Navbar /><LoginPage /></>} />
-          <Route path="/register" element={<><Navbar /><RegistrationPage /></>} />
+          <Route path="/login" element={<><Navbar /><LoginPage setAppState={setAppState}/></>} />
+          <Route path="/register" element={<><Navbar /><RegistrationPage setAppState={setAppState}/></>} />
           <Route path="/activity" element={<><Navbar /></>} />
           <Route path="/nutrition/*" element={<><Navbar /></>} />
           <Route path="/*" element={<><Navbar /><NotFound /></>} />
       </Routes>
       </BrowserRouter>
+      <footer>
+        <h3>Author: Marley Burrows</h3>
+      </footer>
       </div>
   )
 }

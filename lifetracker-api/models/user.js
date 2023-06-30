@@ -11,8 +11,8 @@ class User {
             id: user.id,
             email: user.email,
             username: user.username,
-            firstname: user.firstname,
-            lastname: user.lastname,
+            firstName: user.firstName,
+            lastName: user.lastName,
             created_at: user.created_at
         }
     }
@@ -35,7 +35,7 @@ class User {
 }
 
   static async register(credentials) {
-    const requiredFields = ["email", "password", "username", "firstname", "lastname"];
+    const requiredFields = ["email", "password", "username", "firstName", "lastName"];
     requiredFields.forEach((field) => {
       if (!credentials.hasOwnProperty(field)) {
         throw new BadRequestError(`Missing ${field} in request body!`);
@@ -60,18 +60,18 @@ class User {
       INSERT INTO users (
         email,
         username,
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         password
       )
       VALUES ($1, $2, $3, $4, $5)
-      RETURNING id, username, email, firstname, password, lastname, created_at;
+      RETURNING id, username, email, firstName, password, lastName, created_at;
     `,
       [
         lowercaseEmail,
         credentials.username,
-        credentials.firstname,
-        credentials.lastname,
+        credentials.firstName,
+        credentials.lastName,
         hashedPassword
       ]
     );
@@ -82,7 +82,7 @@ class User {
 
   static async fetchUserByEmail(email) {
     if (!email) {
-      throw new BadRequestError("No email provided!");
+      throw new RequestError("No email provided!");
     }
     const query = `SELECT * FROM users WHERE email = $1`;
     const result = await db.query(query, [email.toLowerCase()]);

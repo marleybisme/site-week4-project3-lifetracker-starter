@@ -1,33 +1,128 @@
 import * as React from "react";
 import './RegistrationForm.css'
 import Navbar from "../Navbar/Navbar";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-function RegistrationForm() {
+function RegistrationForm({ setAppState }) {
+  const navigate = useNavigate()
+  //const [isLoading, setIsLoading] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    passwordConfirm: ""
+  })
 
+  const handleOnInputChange = (event) => {
+    if (event.target.name === "password") {
+      if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {
+        setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match" }))
+      } else {
+        setErrors((e) => ({ ...e, passwordConfirm: null }))
+      }
+    }
+    if (event.target.name === "passwordConfirm") {
+      if (form.password && form.password !== event.target.value) {
+        setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match" }))
+      } else {
+        setErrors((e) => ({ ...e, passwordConfirm: null }))
+      }
+    }
+    if (event.target.name === "email") {
+      if (event.target.value.indexOf("@") === -1) {
+        setErrors((e) => ({ ...e, email: "Please enter a valid email." }))
+      } else {
+        setErrors((e) => ({ ...e, email: null }))
+      }
+    }
+
+    setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
+  }
+
+  const handleOnSubmit = async () => {
+    //setIsLoading(true)
+    setErrors((e) => ({ ...e, form: null }))
+
+    if (form.passwordConfirm !== form.password) {
+      setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
+      //setIsLoading(false)
+      return
+    } else {
+      setErrors((e) => ({ ...e, passwordConfirm: null }))
+    }
+
+    try {
+      const res = await axios.post("http://localhost:3001/auth/register", {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        username: form.username,
+        email: form.email,
+        password: form.password,
+      })
+
+      if (res?.data?.user) {
+        setAppState(res.data)
+        //setIsLoading(false)
+        navigate("/activity")
+      } else {
+        setErrors((e) => ({ ...e, form: "Something went wrong with registration" }))
+       // setIsLoading(false)
+      }
+      console.log(res?.data)
+    } catch (err) {
+      console.log(err)
+      const message = err?.response?.data?.error?.message
+      setErrors((e) => ({ ...e, form: message ? String(message) : String(err) }))
+     // setIsLoading(false)
+    }
+    
+  }
   return (
     <> 
     <div className="registration-form">
         <h1>Become a Member Now!</h1>
     <form className="registration-form">
-        <label for="email">Email:</label>
-        <input className="form-input" type="email" placeholder="Start typing email..."></input>
-        
-        <label for="username">Username:</label>
-        <input className="form-input" type="text" placeholder="Start typing username..."></input>
-        
-        <label for="email">First Name:</label>
-        <input className="form-input" type="text" placeholder="Start typing first name..."></input>
-        
-        <label for="email">Last Name:</label>
-        <input className="form-input" type="text" placeholder="Start typing last name..."></input>
+      <div className="input-field">
+        <label htmlFor="email">Email:</label>
+        <input className="form-input" name="email" type="email" placeholder="Start typing email..." onChange={handleOnInputChange} value={form.email}></input>
+        {errors.email && <span className="error">{errors.email}</span>}
+        </div>
 
-        <label for="password">Password:</label>
-        <input className="form-input" type="password" placeholder="Start typing password..."></input>
-        
-        <label for="password">Confirm Password:</label>
-        <input className="form-input" type="password" placeholder="Re-type password..."></input>
+        <div className="input-field">
+        <label htmlFor="username">Username:</label>
+        <input className="form-input" name="username" type="text" placeholder="Start typing username..." onChange={handleOnInputChange} value={form.username}></input>
+        {errors.username && <span className="error">{errors.username}</span>}
+        </div>
+
+        <div className="input-field">
+        <label htmlFor="firstName">First Name:</label>
+        <input className="form-input" name="firstName" type="text" onChange={handleOnInputChange} placeholder="Start typing first name..." value={form.firstName}></input>
+        {errors.firstName && <span className="error">{errors.firstName}</span>}
+        </div>
+
+        <div className="input-field">
+        <label htmlFor="lastName">Last Name:</label>
+        <input className="form-input" name="lastName" type="text" onChange={handleOnInputChange} placeholder="Start typing last name..." value={form.lastName}></input>
+        {errors.lastName && <span className="error">{errors.lastName}</span>}
+      </div>
+
+        <div className="input-field">
+        <label htmlFor="password">Password:</label>
+        <input className="form-input" name="password" type="password" placeholder="Start typing password..." onChange={handleOnInputChange} value={form.password}></input>
+        {errors.password && <span className="error">{errors.password}</span>}
+      </div>
+        <div className="input-field">
+        <label htmlFor="passwordConfirm">Confirm Password:</label>
+        <input className="form-input" name="passwordConfirm" type="password" placeholder="Re-type password..." onChange={handleOnInputChange} value={form.passwordConfirm}></input>
+        {errors.passwordConfirm && <span className="error">{errors.passwordConfirm}</span>}
+    </div>
       </form>
-      <button className="submit-login">Create Account</button>
+      <button className="submit-login" onClick={handleOnSubmit}>Create Account</button>
 
         <p>Have an account? <a href="/login">Login</a></p>
       </div>
