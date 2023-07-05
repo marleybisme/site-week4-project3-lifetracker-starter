@@ -18,6 +18,7 @@ function RegistrationForm({ setAppState }) {
     passwordConfirm: ""
   })
 
+
   const handleOnInputChange = (event) => {
     if (event.target.name === "password") {
       if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {

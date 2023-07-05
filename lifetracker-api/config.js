@@ -1,10 +1,11 @@
 require("dotenv").config()
 
+
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001
+const SECRET_KEY = process.env.SECRET_KEY || "secret_dev"
 
 function getDatabaseUri() {
     const dbUser = process.env.DATABASE_USER || "postgres"
-    const dbSecret = process.env.SECRET_KEY || "thisoneisfortheboyswiththeboominsystem"
     const dbPass = process.env.DATABASE_PASS ? encodeURI(process.env.DATABASE_PASS) : "postgres"
     const dbHost = process.env.DATABASE_HOST || "localhost"
     const dbBcrypt = process.env.BCRYPT_WORK_FACTOR || 13
@@ -15,13 +16,15 @@ function getDatabaseUri() {
 }
 
 
-console.log("process.env", Object.keys(process.env))
-console.log("App Config")
-console.log("PORT:", PORT)
-console.log("Database URI:", getDatabaseUri())
+console.log("process.env" , Object.keys(process.env))
+console.log("App Config" )
+console.log("PORT:" , PORT)
+console.log("SECRET_KEY:" , SECRET_KEY)
+console.log("Database URI:" , getDatabaseUri())
 console.log("---")
 
 module.exports = {
     PORT,
+    SECRET_KEY,
     getDatabaseUri
 }

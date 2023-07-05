@@ -2,7 +2,7 @@ import * as React from "react";
 import LoginForm from "../LoginForm/LoginForm";
 import Navbar from "../Navbar/Navbar"
 function LoginPage({setAppState}) {
-
+  
   return (
     <> 
     
