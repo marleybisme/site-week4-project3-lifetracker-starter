@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-function LoginForm({ setAppState }) {
+function LoginForm({ setAppState, handleLogin }) {
   const navigate = useNavigate()
   //const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
@@ -35,7 +35,9 @@ function LoginForm({ setAppState }) {
       if (res?.data) {
         setAppState(res.data)
         //setIsLoading(false)
+        handleLogin(e)
         navigate("/activity")
+        
       } else {
         setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
         //setIsLoading(false)

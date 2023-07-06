@@ -1,4 +1,19 @@
-
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+export default function NutritionPage ({appState}) {
+    return (
+        <>
+        {appState.loginStatus ? (
+            <div>
+                
+            </div>
+        ) : (
+            <div>
+                <h1>You must be logged in to view Nutrition content.</h1>
+            </div>
+        )}
+        </>
+    )
+}
 
 
 

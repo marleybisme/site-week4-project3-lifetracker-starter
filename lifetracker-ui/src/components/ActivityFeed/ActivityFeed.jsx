@@ -1,4 +1,20 @@
+import * as React from "react";
 
+export default function ActivityFeed ({appState}) {
+    return (
+        <>
+        {appState.loginStatus ? (
+            <div>
+                
+            </div>
+        ) : (
+            <div>
+                <h1>You must be logged in to view Activity content.</h1>
+            </div>
+        )}
+        </>
+    )
+}
 
 
 

@@ -1,5 +1,4 @@
 import * as React from "react";
-import Navbar from "../Navbar/Navbar";
 import "./LandingPage.css"
 
 export default function LandingPage() {

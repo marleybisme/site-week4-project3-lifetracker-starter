@@ -6,21 +6,46 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegistrationPage from "../RegistrationPage/RegistrationPage";
 import Navbar from "../Navbar/Navbar";
 import NotFound from "../NotFound/NotFound";
+import ActivityPage from "../ActivityPage/ActivityPage";
+import SleepPage from "../SleepPage/SleepPage";
+import ExercisePage from "../ExercisePage/ExercisePage";
+import NutritionPage from "../NutritionPage/NutritionPage";
+
 
 
 function App() {
-  const [appState, setAppState] = React.useState({})
+  const [appState, setAppState] = React.useState({
+    user: {},
+    loginStatus: false,
+    nutrition: [],
+    sleep: [],
+    exercise: []
+  })
+
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    setAppState((appState) => ({...appState, loginStatus: false}))
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    setAppState((appState) => ({...appState, loginStatus: true}))
+  }
+
   return (
     <div className="app">
       {/* routes to pages on site */}
     <BrowserRouter>
-     <Navbar />
+    <Navbar appState={appState} handleLogout={handleLogout} handleLogin={handleLogin}/>
         <Routes>
           <Route path="/" element={<>  <LandingPage /></>} />
-          <Route path="/login" element={<> <LoginPage setAppState={setAppState}/></>} />
-          <Route path="/register" element={<> <RegistrationPage setAppState={setAppState}/></>} />
-          <Route path="/activity" element={<> </>} />
-          <Route path="/nutrition/*" element={<> </>} />
+          <Route path="/login" element={<> <LoginPage handleLogin={handleLogin} setAppState={setAppState}/></>} />
+          <Route path="/register" element={<RegistrationPage setAppState={setAppState}/>} />
+          <Route path="/activity" element={<ActivityPage  appState={appState} />} />
+          <Route path="/sleep" element={<SleepPage  appState={appState} />} />
+          <Route path="/exercise" element={<ExercisePage  appState={appState} />} />
+          <Route path="/nutrition/*" element={<NutritionPage  appState={appState} />} />
           <Route path="/*" element={<> <NotFound /></>} />
       </Routes>
       </BrowserRouter>

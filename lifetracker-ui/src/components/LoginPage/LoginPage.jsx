@@ -1,13 +1,13 @@
 import * as React from "react";
 import LoginForm from "../LoginForm/LoginForm";
 import Navbar from "../Navbar/Navbar"
-function LoginPage({setAppState}) {
+function LoginPage({setAppState, handleLogin}) {
   
   return (
     <> 
     
     <div className="login-page">
-    <LoginForm setAppState={setAppState}/>
+    <LoginForm setAppState={setAppState} handleLogin={handleLogin}/>
       </div>
       </>
   )

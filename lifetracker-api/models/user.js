@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt")
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const { dbBcrypt } = require("../config")
 
-console.log( dbBcrypt )
 
 class User {
     static async makePublicUser(user) {
