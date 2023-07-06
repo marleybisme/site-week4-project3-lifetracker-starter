@@ -1,42 +1,58 @@
-const axios = require('axios');
-const { API_BASE_URL } = require('./constants.js')
+import axios from 'axios';
+
 
 class ApiClient {
     constructor(remoteHostUrl) {
         this.remoteHostUrl = remoteHostUrl
         this.token = null
+        this.tokenName = "lifetracker_token"
     }
 
     setToken(token) {
         this.token = token
+        localStorage.setItem(this.tokenName, token)
     }
 
-    async request() {
+    async request({endpoint, method=`GET`, data={}}) {
+        const url = `${this.remoteHostUrl}/${endpoint}`
 
+        const headers = {
+            "Content-Type": "application/json"
+        }
+
+        if(this.token) {
+            headers["Authorization"] = `Bearer ${this.token}`
+        }
+
+        try {
+            const res = await axios({url, method, data, headers})
+            return {data: res?.data, error: null}
+        } catch (err) {
+            console.error({errorResponse: err})
+            const message = err?.response?.data?.err?.message
+            return { data: null, error: message || String(err)}
+        }
     }
+
+    // async listPosts() {
+    //     return await this.request({ endpoint: `posts`,  method: `GET`})
+    // }
+
+    // async createPost(post) {
+    //     return await this.request({ endpoint: `posts`, method: `POST`, data: post})
+    // }
+
+    async fetchUserFromToken() {
+        return await this.request({ endpoint: `auth/me`, method: `GET`})
+    }
+
+    async loginUser(credentials) {
+        return await this.request({endpoint: `auth/login`, method: `POST`, data: credentials })
+    }
+    async signupUser(credentials) {
+        return await this.request({endpoint: `auth/register`, method: `POST`, data: credentials })
+    }
+
 }
 
-export default new ApiClient();
-
-
-
-
-
-// - [X] In the `apiClient.js` file, import the `axios` package and 
-// the `API_BASE_URL` constant from the `constants.js` file.
-// - [X] Define a new class in that file called `ApiClient`.
-//   - [X] Give it a constructor function that accepts a single 
-//   parameter - `remoteHostUrl`. The constructor should attach the 
-//   `remoteHostUrl` parameter to a new instance with `this.remoteHostUrl = remoteHostUrl`. 
-//   It should also set `this.token = null`.
-//   - [X] Export default a new instance of the `ApiClient` class.
-//   - [X] Add an additional method called `setToken` that accepts a 
-//   single parameter - `token` and attaches it to the instance.
-//   - [ ] Create a utility method called `request` that uses `axios` to issue HTTP requests
-//   - [ ] Add a `login` method that uses the `request` method to send 
-//   an HTTP request to the `auth/login` endpoint
-//   - [ ] Add a `signup` method that uses the `request` method to send
-//    an HTTP request to the `auth/register` endpoint
-//   - [ ] Add a `fetchUserFromToken` method that uses the `request` 
-//   method to send an HTTP request to the `auth/me` endpoint
-//   - [ ] **Add as many other methods as needed when making API requests.**
+export default new ApiClient("http://localhost:3001");

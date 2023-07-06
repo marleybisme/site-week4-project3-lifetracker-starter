@@ -1,6 +1,7 @@
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
+import apiClient from "../../../../services/apiClient";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegistrationPage from "../RegistrationPage/RegistrationPage";
@@ -10,26 +11,77 @@ import ActivityPage from "../ActivityPage/ActivityPage";
 import SleepPage from "../SleepPage/SleepPage";
 import ExercisePage from "../ExercisePage/ExercisePage";
 import NutritionPage from "../NutritionPage/NutritionPage";
+import { useState } from "react";
+import { useEffect } from "react";
+import jwtDecode from "jwt-decode"
 
 
 
 function App() {
-  const [appState, setAppState] = React.useState({
+  const [appState, setAppState] = useState({
     user: {},
     loginStatus: false,
     nutrition: [],
     sleep: [],
     exercise: []
   })
+  const [username, setUsername] = useState()
+  const [posts, setPosts] = useState([])
+  const [error, setError] = useState(null)
+
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     const { data, error } = await apiClient.listPosts()
+  //     if (data) setPosts(data.posts)
+  //     if (error) setError(error)
+  //   }
+  // })
+
+  useEffect(() => {
+    const checkLoggedIn = () => {
+      const token = localStorage.getItem("lifetracker_token")
+      
+      if(token !== "undefined" && token){
+        
+        const decodedToken = jwtDecode(token)
+        setUsername(decodedToken.username)
+
+        if(decodedToken.exp * 1000 > Date.now()){
+          console.log("User exists! Logging in...")
+          handleLogin()
+        }
+        else {
+        handleLogout()
+        }
+      }
+    }
+    console.log("Checking if the user is in a session...")
+    checkLoggedIn()
+  }, [])
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await apiClient.fetchUserFromToken()
+      console.log(data)
+      if (data) setAppState((appState) => ({...appState, user: data.user}))
+      if (error) setError(error)
+    }
+    const token = localStorage.getItem("lifetracker_token")
+    if (token !== "undefined" && token) {
+      apiClient.setToken(token)
+      console.log("success! token exists")
+      fetchUser()
+    }
+  }, [])
 
 
-  const handleLogout = (e) => {
-    e.preventDefault()
+  const handleLogout = () => {
+    console.log("Logging out")
+    localStorage.removeItem("lifetracker_token")
     setAppState((appState) => ({...appState, loginStatus: false}))
   }
 
-  const handleLogin = (e) => {
-    e.preventDefault()
+  const handleLogin = () => {
     setAppState((appState) => ({...appState, loginStatus: true}))
   }
 
@@ -39,8 +91,8 @@ function App() {
     <BrowserRouter>
     <Navbar appState={appState} handleLogout={handleLogout} handleLogin={handleLogin}/>
         <Routes>
-          <Route path="/" element={<>  <LandingPage /></>} />
-          <Route path="/login" element={<> <LoginPage handleLogin={handleLogin} setAppState={setAppState}/></>} />
+          <Route path="/" element={<>  <LandingPage appState={appState} /></>} />
+          <Route path="/login" element={<> <LoginPage setAppState={setAppState} appState={appState}/></>} />
           <Route path="/register" element={<RegistrationPage setAppState={setAppState}/>} />
           <Route path="/activity" element={<ActivityPage  appState={appState} />} />
           <Route path="/sleep" element={<SleepPage  appState={appState} />} />

@@ -5,6 +5,25 @@ const router = express.Router();
 const { createUserJwt } = require("../utils/tokens");
 const bcrypt = require("bcrypt");
 
+
+
+router.get("/me", async (req, res, next) => {
+  try {
+    const user = await User.register(req.body);
+    return res.status(201).json({ 
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          username: user.username
+        }
+    });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 router.post("/register", async (req, res, next) => {
   try {
     const user = await User.register(req.body);
@@ -12,7 +31,7 @@ router.post("/register", async (req, res, next) => {
     return res.status(201).json({ 
         message: "User registered successfully",
         token:token,
-        user 
+        user: res.rows[0]
     });
   } catch (err) {
     res.send(err);
@@ -35,13 +54,12 @@ router.post("/login", async (req, res, next) => {
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
+    
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
     const token = createUserJwt(user);
-
     res.status(200).json({
       message: "Login Successful",
       token: token,

@@ -1,7 +1,7 @@
 import * as React from "react";
 import './RegistrationForm.css'
 import Navbar from "../Navbar/Navbar";
-import axios from 'axios'
+import apiClient from "../../../../services/apiClient";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -23,14 +23,20 @@ function RegistrationForm({ setAppState }) {
     if (event.target.name === "password") {
       if (form.passwordConfirm && form.passwordConfirm !== event.target.value) {
         setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match" }))
-      } else {
+      } 
+      if (!event.target.value) {
+        setErrors((e) => ({ ...e, password: "Enter a password!" }))
+      }
+      else {
         setErrors((e) => ({ ...e, passwordConfirm: null }))
       }
     }
     if (event.target.name === "passwordConfirm") {
       if (form.password && form.password !== event.target.value) {
         setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match" }))
-      } else {
+      } 
+      
+      else {
         setErrors((e) => ({ ...e, passwordConfirm: null }))
       }
     }
@@ -46,40 +52,39 @@ function RegistrationForm({ setAppState }) {
   }
 
   const handleOnSubmit = async () => {
-    //setIsLoading(true)
     setErrors((e) => ({ ...e, form: null }))
 
     if (form.passwordConfirm !== form.password) {
       setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
-      //setIsLoading(false)
       return
-    } else {
+    } 
+    else if (!form.password || !form.passwordConfirm) {
+      setErrors((e) => ({ ...e, passwordConfirm: "Enter a password!" }))
+    }
+    else {
       setErrors((e) => ({ ...e, passwordConfirm: null }))
     }
+  
 
-    try {
-      const res = await axios.post("http://localhost:3001/auth/register", {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        username: form.username,
-        email: form.email,
-        password: form.password,
-      })
-
-      if (res?.data?.user) {
-        setAppState(res.data)
-        //setIsLoading(false)
-        navigate("/activity")
-      } else {
-        setErrors((e) => ({ ...e, form: "Something went wrong with registration" }))
-       // setIsLoading(false)
-      }
-      console.log(res?.data)
-    } catch (err) {
-      console.log(err)
-      const message = err?.response?.data?.error?.message
-      setErrors((e) => ({ ...e, form: message ? String(message) : String(err) }))
-     // setIsLoading(false)
+    const {data, error} = await apiClient.signupUser({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      username: form.username,
+      email: form.email,
+      password: form.password
+    })
+    if (error) setErrors((e) => ({ ...e, form: error }))
+    if(data.status === 400){
+      setErrors((e) => ({...e, email: data.message}))
+    }
+    if (data) {
+      setAppState((prevState) => ({
+        ...prevState,
+        user: data.user,
+        loginStatus: true
+      }))
+      navigate("/activity")
+      apiClient.setToken(data.token)
     }
     
   }
@@ -96,7 +101,7 @@ function RegistrationForm({ setAppState }) {
 
         <div className="input-field">
         <label htmlFor="username">Username:</label>
-        <input className="form-input" name="username" type="text" placeholder="Start typing username..." onChange={handleOnInputChange} value={form.username}></input>
+        <input className="form-input" required name="username" type="text" placeholder="Start typing username..." onChange={handleOnInputChange} value={form.username}></input>
         {errors.username && <span className="error">{errors.username}</span>}
         </div>
 
@@ -114,12 +119,12 @@ function RegistrationForm({ setAppState }) {
 
         <div className="input-field">
         <label htmlFor="password">Password:</label>
-        <input className="form-input" name="password" type="password" placeholder="Start typing password..." onChange={handleOnInputChange} value={form.password}></input>
+        <input className="form-input" required name="password" type="password" placeholder="Start typing password..." onChange={handleOnInputChange} value={form.password}></input>
         {errors.password && <span className="error">{errors.password}</span>}
       </div>
         <div className="input-field">
         <label htmlFor="passwordConfirm">Confirm Password:</label>
-        <input className="form-input" name="passwordConfirm" type="password" placeholder="Re-type password..." onChange={handleOnInputChange} value={form.passwordConfirm}></input>
+        <input className="form-input" required name="passwordConfirm" type="password" placeholder="Re-type password..." onChange={handleOnInputChange} value={form.passwordConfirm}></input>
         {errors.passwordConfirm && <span className="error">{errors.passwordConfirm}</span>}
     </div>
       </form>

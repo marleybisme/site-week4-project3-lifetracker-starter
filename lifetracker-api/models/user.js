@@ -45,10 +45,11 @@ class User {
         throw new BadRequestError("Invalid email.  ")
     }
 
-    const existingUser = await User.fetchUserByEmail(credentials.email);
-    if (existingUser) {
+    const existingEmail = await User.fetchUserByEmail(credentials.email);
+    if (existingEmail) {
       throw new BadRequestError(`Duplicate email: ${credentials.email}`);
     }
+    
 
     const hashedPassword = await bcrypt.hash(credentials.password, 13);
 

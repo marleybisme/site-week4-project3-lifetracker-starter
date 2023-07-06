@@ -3,8 +3,11 @@ import './LoginForm.css'
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import apiClient from "../../../../services/apiClient";
+import { useEffect } from "react";
 
-function LoginForm({ setAppState, handleLogin }) {
+
+function LoginForm({ setAppState, appState }) {
   const navigate = useNavigate()
   //const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
@@ -12,6 +15,7 @@ function LoginForm({ setAppState, handleLogin }) {
     email: "",
     password: "",
   })
+
 
   const handleOnInputChange = (event) => {
     if (event.target.name === "email") {
@@ -30,23 +34,19 @@ function LoginForm({ setAppState, handleLogin }) {
     //setIsLoading(true)
     setErrors((e) => ({ ...e, form: null }))
 
-    try {
-      const res = await axios.post(`http://localhost:3001/auth/login`, form)
-      if (res?.data) {
-        setAppState(res.data)
-        //setIsLoading(false)
-        handleLogin(e)
-        navigate("/activity")
-        
-      } else {
-        setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
-        //setIsLoading(false)
-      }
-    } catch (err) {
-      console.log(err)
-      const message = err?.response?.data?.error?.message
-      setErrors((e) => ({ ...e, form: message ? String(message) : String(err) }))
-     //setIsLoading(false)
+    const {data, error} = await apiClient.loginUser({
+      email: form.email,
+      password: form.password
+    })
+    if (error) setErrors((e) => ({ ...e, password: "Ensure all fields are complete and correct." }))
+    if (data?.user) {
+      setAppState((prevState) => ({
+        ...prevState,
+        user: data.user,
+        loginStatus: true
+      }))
+      apiClient.setToken(data.token)
+      navigate("/activity")
     }
   }
   return (

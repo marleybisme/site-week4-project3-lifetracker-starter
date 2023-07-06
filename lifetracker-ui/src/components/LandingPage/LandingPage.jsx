@@ -1,11 +1,29 @@
 import * as React from "react";
 import "./LandingPage.css"
 
-export default function LandingPage() {
-
+export default function LandingPage({appState}) {
+  console.log(appState.user)
   return (
+   
     <div className="landing-page">
-      <div className="content">
+       {appState.loginStatus ? (
+        <div>
+          <div className="content">
+        <div className="hero">
+          <div className="img-container">
+            <img src="https://livehealthymag.com/wp-content/uploads/2021/02/fitness-trackers-1280x854.jpg"></img>
+          </div>
+          <div className="hero-text">
+            <h1>Welcome Back, </h1>
+            <h2>Helping you take back control of your world.</h2>
+            <h3><a href="\activity">View Activity</a></h3>
+          </div>
+        </div>
+          </div>
+          </div>
+       ) : (
+        <div>
+            <div className="content">
         <div className="hero">
           <div className="img-container">
             <img src="https://livehealthymag.com/wp-content/uploads/2021/02/fitness-trackers-1280x854.jpg"></img>
@@ -16,6 +34,11 @@ export default function LandingPage() {
             <h3><a href="\register">Create an Account Now!</a></h3>
           </div>
         </div>
+        </div>
+        </div>
+       )
+       }
+      
     <div className="tiles">
     <div>
       <h2>Fitness</h2>
@@ -36,7 +59,6 @@ export default function LandingPage() {
     
 
     </div>
-      </div>
       </div>
   )
 }
