@@ -64,20 +64,23 @@ function RegistrationForm({ setAppState }) {
     else {
       setErrors((e) => ({ ...e, passwordConfirm: null }))
     }
-  
 
-    const {data, error} = await apiClient.signupUser({
+    const res = await apiClient.signupUser({
       firstName: form.firstName,
       lastName: form.lastName,
       username: form.username,
       email: form.email,
       password: form.password
     })
+    const {data, error} = res
+
     if (error) setErrors((e) => ({ ...e, form: error }))
-    if(data.status === 400){
+    if(data?.status === 400){
       setErrors((e) => ({...e, email: data.message}))
     }
+    console.log("Regform data:", data)
     if (data) {
+      console.log("success!")
       setAppState((prevState) => ({
         ...prevState,
         user: data.user,
@@ -85,6 +88,7 @@ function RegistrationForm({ setAppState }) {
       }))
       navigate("/activity")
       apiClient.setToken(data.token)
+      localStorage.setItem("lifetracker_token", data.token)
     }
     
   }

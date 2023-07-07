@@ -32,7 +32,7 @@ const requireAuthenticatedUser = (req, res, next) => {
             throw new UnauthorizedError
         }
     } catch(err) {
-        return next(error)
+        return next(err)
     }
 }
 

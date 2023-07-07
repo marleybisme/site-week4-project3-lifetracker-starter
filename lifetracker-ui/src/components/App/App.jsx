@@ -18,13 +18,21 @@ import jwtDecode from "jwt-decode"
 
 
 function App() {
-  const [appState, setAppState] = useState({
-    user: {},
-    loginStatus: false,
-    nutrition: [],
-    sleep: [],
-    exercise: []
-  })
+  const [appState, setAppState] = useState(() => {
+    const storedAppState = localStorage.getItem("appState");
+    return storedAppState ? JSON.parse(storedAppState) : {
+      user: {},
+      loginStatus: false,
+      nutrition: [],
+      sleep: [],
+      exercise: []
+    };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("appState", JSON.stringify(appState));
+  }, [appState]);
+
   const [username, setUsername] = useState()
   const [posts, setPosts] = useState([])
   const [error, setError] = useState(null)
@@ -47,7 +55,6 @@ function App() {
         setUsername(decodedToken.username)
 
         if(decodedToken.exp * 1000 > Date.now()){
-          console.log("User exists! Logging in...")
           handleLogin()
         }
         else {
@@ -61,24 +68,23 @@ function App() {
 
   useEffect(() => {
     const fetchUser = async () => {
+      const token = localStorage.getItem("lifetracker_token")
+      if (token !== "undefined" && token) {
+        apiClient.setToken(token)
+        console.log("success! token exists")
+      }  
       const { data, error } = await apiClient.fetchUserFromToken()
-      console.log(data)
+      
       if (data) setAppState((appState) => ({...appState, user: data.user}))
       if (error) setError(error)
     }
-    const token = localStorage.getItem("lifetracker_token")
-    if (token !== "undefined" && token) {
-      apiClient.setToken(token)
-      console.log("success! token exists")
-      fetchUser()
-    }
+    fetchUser()
   }, [])
 
 
   const handleLogout = () => {
-    console.log("Logging out")
     localStorage.removeItem("lifetracker_token")
-    setAppState((appState) => ({...appState, loginStatus: false}))
+    setAppState((appState) => ({...appState, user:null, loginStatus: false}))
   }
 
   const handleLogin = () => {
@@ -97,7 +103,7 @@ function App() {
           <Route path="/activity" element={<ActivityPage  appState={appState} />} />
           <Route path="/sleep" element={<SleepPage  appState={appState} />} />
           <Route path="/exercise" element={<ExercisePage  appState={appState} />} />
-          <Route path="/nutrition/*" element={<NutritionPage  appState={appState} />} />
+          <Route path="/nutrition/*" element={<NutritionPage appState={appState} />} />
           <Route path="/*" element={<> <NotFound /></>} />
       </Routes>
       </BrowserRouter>

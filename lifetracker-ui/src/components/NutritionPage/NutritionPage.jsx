@@ -1,10 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import NutritionForm from "../NutritionForm/NutritionForm"
 export default function NutritionPage ({appState}) {
     return (
         <>
         {appState.loginStatus ? (
             <div>
-                
+            {/* ternary operator for add new button
+             if button is pressed, remove nutrition feed . once save button is pressed, show nutrition feed under <add item> button again*/}
+             <NutritionForm appState={appState}/>
             </div>
         ) : (
             <div>

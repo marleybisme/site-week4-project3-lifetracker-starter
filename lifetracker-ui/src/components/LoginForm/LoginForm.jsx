@@ -31,7 +31,6 @@ function LoginForm({ setAppState, appState }) {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
-    //setIsLoading(true)
     setErrors((e) => ({ ...e, form: null }))
 
     const {data, error} = await apiClient.loginUser({
@@ -39,7 +38,8 @@ function LoginForm({ setAppState, appState }) {
       password: form.password
     })
     if (error) setErrors((e) => ({ ...e, password: "Ensure all fields are complete and correct." }))
-    if (data?.user) {
+    if (data?.user !== "undefined" && data?.user) {
+      console.log("User data:", data?.user)
       setAppState((prevState) => ({
         ...prevState,
         user: data.user,

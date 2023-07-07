@@ -1,4 +1,66 @@
+import { useState } from "react"
+import apiClient from "../../../../services/apiClient"
 
+export default function NutritionForm ({appState}) {
+    const [form, setForm] = useState({
+        name: "",
+        category: "",
+        quantity: 0,
+        calories: 0,
+        image_url: ""
+      })
+
+      const handleOnInputChange = (event) => {
+        setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
+      }
+    
+      const handleOnSubmit = async (event) => {
+        event.preventDefault()
+        console.log("form data:", form)
+        const res = await apiClient.addNutrition({
+            name: form.name,
+            category: form.category,
+            quantity: form.quantity,
+            calories: form.calories,
+            image_url: form.image_url
+        })
+      }
+
+    return(
+        <div className="nutrition-form">
+            <form onSubmit={handleOnSubmit}>
+        <div>
+            <div>
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" name="name"onChange={handleOnInputChange} value={form.name} required />
+            </div>
+            <div>
+            <label htmlFor="category">Category</label>
+            <select id="category" name="category" onChange={handleOnInputChange} value={form.category} required>
+                <option value="">Select a category</option>
+                <option value="snack">Snack</option>
+                <option value="beverage">Beverage</option>
+                <option value="food">Food</option>
+            </select>
+            </div>
+            <div>
+            <label htmlFor="quantity">Quantity</label>
+            <input type="number" onChange={handleOnInputChange} value={form.quantity} id="quantity" name="quantity" min="1" required />
+            </div>
+            <div>
+            <label htmlFor="calories">Calories</label>
+            <input type="number" onChange={handleOnInputChange} value={form.calories} id="calories" name="calories" min="0" required />
+            </div>
+            <div>
+            <label htmlFor="imageUrl">URL for Image</label>
+            <input type="text" onChange={handleOnInputChange} value={form.image_url} id="imageUrl" name="imageUrl" />
+            </div>
+            <button type="submit">Save</button>
+        </div>
+        </form>
+    </div>
+    )
+}
 
 
 
