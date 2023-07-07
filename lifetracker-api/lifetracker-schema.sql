@@ -18,3 +18,17 @@ CREATE TABLE nutrition (
     image_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE exercise (
+    id SERIAL PRIMARY KEY,
+    category VARCHAR(255) NOT NULL,
+    duration INTEGER NOT NULL,
+    intensity INTEGER NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE sleep (
+   starttime TIMESTAMP NOT NULL,
+   endtime TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
