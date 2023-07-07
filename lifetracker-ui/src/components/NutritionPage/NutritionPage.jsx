@@ -1,14 +1,29 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NutritionForm from "../NutritionForm/NutritionForm"
+import { useState } from "react"
+import "./NutritionPage.css"
+import NutritionFeed from "../NutritionFeed/NutritionFeed"
 
-export default function NutritionPage ({appState}) {
+export default function NutritionPage ({setAppState, appState}) {
+    const [addNew, setAddNew] = useState(false)
+    
+    const handleAddNew = () => {
+        setAddNew(true)
+    }
     return (
         <>
+        <div className="record-container">
+        <button onClick={handleAddNew} className="record">Record New Nutrition</button>
+        </div>
         {appState.loginStatus ? (
             <div>
+                {addNew ? (
+                <NutritionForm setAddNew={setAddNew} setAppState={setAppState} appState={appState}/>
+                ) : (
+                <NutritionFeed appState={appState}/>
+                )}
             {/* ternary operator for add new button
              if button is pressed, remove nutrition feed . once save button is pressed, show nutrition feed under <add item> button again*/}
-             <NutritionForm appState={appState}/>
             </div>
         ) : (
             <div>

@@ -2,9 +2,9 @@ import { useState } from "react"
 import apiClient from "../../../../services/apiClient"
 import './NutritionForm.css'
 
-export default function NutritionForm ({appState}) {
+export default function NutritionForm ({setAddNew, setAppState, appState}) {
     const [form, setForm] = useState({
-        name: "",
+       foodname: "",
         category: "",
         quantity: 0,
         calories: 0,
@@ -15,16 +15,32 @@ export default function NutritionForm ({appState}) {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
       }
     
-      const handleOnSubmit = async (event) => {
+    const handleOnSubmit = async (event) => {
         event.preventDefault()
-        console.log("form data:", form)
-        const res = await apiClient.addNutrition({
-            name: form.name,
+        setAddNew(false)
+        //console.log("form data:", form)
+        const res = await apiClient.enterNutrition({
+            credentials: appState.user,
+            nutritionEntry: {
+            foodname: form.foodname,
             category: form.category,
             quantity: form.quantity,
             calories: form.calories,
             image_url: form.image_url
+        }
         })
+
+        console.log(res)
+        const {data, error} = res
+            if(data?.status === 400){
+        setErrors((e) => ({...e, nutrition: data.message}))
+        }
+        if (data) {
+            setAppState((prevState) => ({
+              ...prevState,
+              nutrition: [...prevState.nutrition, data.nutrition]
+            }));
+          }
       }
 
     return(
@@ -33,7 +49,7 @@ export default function NutritionForm ({appState}) {
         <div>
             <div>
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" name="name"onChange={handleOnInputChange} value={form.name} required />
+            <input type="text" id="name" name="foodname"onChange={handleOnInputChange} value={form.foodname} required />
             </div>
             <div>
             <label htmlFor="category">Category</label>
@@ -53,8 +69,8 @@ export default function NutritionForm ({appState}) {
             <input type="number" onChange={handleOnInputChange} value={form.calories} id="calories" name="calories" min="0" required />
             </div>
             <div>
-            <label htmlFor="imageUrl">URL for Image</label>
-            <input type="text" onChange={handleOnInputChange} value={form.image_url} id="imageUrl" name="imageUrl" />
+            <label htmlFor="image_url">URL for Image</label>
+            <input type="text" onChange={handleOnInputChange} value={form.image_url} id="image_url" name="image_url" w/>
             </div>
             <button type="submit">Save</button>
         </div>

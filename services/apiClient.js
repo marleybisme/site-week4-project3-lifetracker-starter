@@ -50,8 +50,11 @@ class ApiClient {
         return await this.request({endpoint: `auth/login`, method: `POST`, data: credentials })
     }
     async signupUser(credentials) {
-        console.log("hitting api client")
         return await this.request({endpoint: `auth/register`, method: `POST`, data: credentials })
+    }
+
+    async enterNutrition(nutritionData) {
+        return await this.request({endpoint: `auth/nutrition`, method: `POST`, data: nutritionData})
     }
 
 }

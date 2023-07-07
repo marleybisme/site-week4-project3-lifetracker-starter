@@ -1,7 +1,7 @@
 .NutritionPage {
   background: #f7fafc;
 }
-.NutritionPage .nutrition-feed {
+.NutritionPage {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -16,4 +16,25 @@
 }
 .NutritionPage .button button {
   flex: 1;
+}
+
+.record {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+ color: #F6E275;
+ background-color: #462A0A;
+  cursor: pointer;
+}
+
+.record-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.record:hover {
+  color: #462A0A;
+  background-color: #F6E275;
 }

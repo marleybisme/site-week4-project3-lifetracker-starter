@@ -10,8 +10,8 @@ function RegistrationForm({ setAppState }) {
   //const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     username: "",
     email: "",
     password: "",
@@ -66,8 +66,8 @@ function RegistrationForm({ setAppState }) {
     }
 
     const res = await apiClient.signupUser({
-      firstName: form.firstName,
-      lastName: form.lastName,
+      firstname: form.firstname,
+      lastname: form.lastname,
       username: form.username,
       email: form.email,
       password: form.password
@@ -78,9 +78,7 @@ function RegistrationForm({ setAppState }) {
     if(data?.status === 400){
       setErrors((e) => ({...e, email: data.message}))
     }
-    console.log("Regform data:", data)
     if (data) {
-      console.log("success!")
       setAppState((prevState) => ({
         ...prevState,
         user: data.user,
@@ -110,15 +108,15 @@ function RegistrationForm({ setAppState }) {
         </div>
 
         <div className="input-field">
-        <label htmlFor="firstName">First Name:</label>
-        <input className="form-input" name="firstName" type="text" onChange={handleOnInputChange} placeholder="Start typing first name..." value={form.firstName}></input>
-        {errors.firstName && <span className="error">{errors.firstName}</span>}
+        <label htmlFor="firstname">First Name:</label>
+        <input className="form-input" name="firstname" type="text" onChange={handleOnInputChange} placeholder="Start typing first name..." value={form.firstname}></input>
+        {errors.firstname && <span className="error">{errors.firstname}</span>}
         </div>
 
         <div className="input-field">
-        <label htmlFor="lastName">Last Name:</label>
-        <input className="form-input" name="lastName" type="text" onChange={handleOnInputChange} placeholder="Start typing last name..." value={form.lastName}></input>
-        {errors.lastName && <span className="error">{errors.lastName}</span>}
+        <label htmlFor="lastname">Last Name:</label>
+        <input className="form-input" name="lastname" type="text" onChange={handleOnInputChange} placeholder="Start typing last name..." value={form.lastname}></input>
+        {errors.lastname && <span className="error">{errors.lastname}</span>}
       </div>
 
         <div className="input-field">
@@ -155,12 +153,12 @@ export default RegistrationForm
 //   - [ ] Should render an input element for the following fields:
 //     - [ ] `email`
 //     - [ ] `username`
-//     - [ ] `firstName`
-//     - [ ] `lastName`
+//     - [ ] `firstname`
+//     - [ ] `lastname`
 //     - [ ] `password`
 //     - [ ] `passwordConfirm`
 //   - [ ] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
-//     - [ ] `name` - the `name` of the `input` field being rendered (`email`, `username`, `firstName`, `lastName`, `password`, `passwordConfirm`)
+//     - [ ] `name` - the `name` of the `input` field being rendered (`email`, `username`, `firstname`, `lastname`, `password`, `passwordConfirm`)
 //     - [ ] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
 //     - [ ] `value` - the current value of the `input` element
 //     - [ ] `onChange` - the `onChange` handler function

@@ -1,0 +1,8 @@
+.feed-content {
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 20px;
+    margin-inline: 30px;
+    align-self: center;
+}

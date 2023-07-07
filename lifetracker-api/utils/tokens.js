@@ -8,8 +8,8 @@ const createUserJwt = (user) => {
         id: user.id,
         username: user.username,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName
+        firstname: user.firstname,
+        lastname: user.lastname
     }
     return generateToken(payload)
 }

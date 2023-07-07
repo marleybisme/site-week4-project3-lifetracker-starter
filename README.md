@@ -173,12 +173,12 @@ Update the `App` component to manage authentication state:
   - [ ] Should render an input element for the following fields:
     - [ ] `email`
     - [ ] `username`
-    - [ ] `firstName`
-    - [ ] `lastName`
+    - [ ] `firstname`
+    - [ ] `lastname`
     - [ ] `password`
     - [ ] `passwordConfirm`
   - [ ] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
-    - [ ] `name` - the `name` of the `input` field being rendered (`email`, `username`, `firstName`, `lastName`, `password`, `passwordConfirm`)
+    - [ ] `name` - the `name` of the `input` field being rendered (`email`, `username`, `firstname`, `lastname`, `password`, `passwordConfirm`)
     - [ ] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
     - [ ] `value` - the current value of the `input` element
     - [ ] `onChange` - the `onChange` handler function
@@ -541,7 +541,7 @@ Here are the pieces of functionality that should be built out for the backend:
           - [ ] It should accept a request body with `email` and `password` keys
           - [ ] It should send a JSON response back to the client with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
         - [ ] A `POST` request to the `/register` endpoint
-          - [ ] It should accept a request body with `email`, `username`, `firstName`, `lastName`, and `password` keys
+          - [ ] It should accept a request body with `email`, `username`, `firstname`, `lastname`, and `password` keys
           - [ ] It should send a JSON response back to the client with a `201` status code, along with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
       - [ ] It should be mounted at the `/auth` endpoint in the `app.js` file
     - [ ] In the `routes/auth.test.js` file:

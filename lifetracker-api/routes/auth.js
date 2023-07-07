@@ -12,9 +12,7 @@ router.get("/me", requireAuthenticatedUser , async (req, res, next) => {
   try {
     const email = res.locals.user.email
     const user = User.fetchUserByEmail(email)
-    return res.status(200).json({ 
-        user
-    });
+    return res.status(200).json({ user });
   } catch (err) {
     res.send(err);
   }
@@ -23,7 +21,6 @@ router.get("/me", requireAuthenticatedUser , async (req, res, next) => {
 router.post("/register", async (req, res, next) => {
   try {
     const user = await User.register(req.body);
-    console.log("auth user:", user)
     const token = createUserJwt(user);
     return res.status(200).json({ 
         message: "User registered successfully",
@@ -65,8 +62,8 @@ router.post("/login", async (req, res, next) => {
         id: user.id,
         username: user.username,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName
+        firstname: user.firstname,
+        lastname: user.lastname
       },
     });
   } catch (err) {
@@ -74,5 +71,15 @@ router.post("/login", async (req, res, next) => {
     res.status(500).json({ message: "Error logging in" });
   }
 });
+
+router.post("/nutrition", async (req, res, next) => {
+  console.log("nut bod", req.body)
+  try{
+    const nutrition = await User.createNutrition(req.body)
+    return res.status(201).json({ nutrition })
+  } catch (err) {
+    next(err)
+  }
+})
 
 module.exports = router;

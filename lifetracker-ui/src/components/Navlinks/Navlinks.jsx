@@ -5,6 +5,11 @@ import "./Navlinks.css";
 export default function Navlinks({ appState, handleLogout }) {
   return (
     <div className="navcontent">
+      <div className="logo">
+        <Link to="/">
+          <img src="https://icons.veryicon.com/png/o/food--drinks/fruits-4/banana-50.png" alt="banana icon" />
+        </Link>
+      </div>
       <ul className="pagelinks">
         <li>
           <Link to="/activity">Activity</Link>
@@ -19,11 +24,7 @@ export default function Navlinks({ appState, handleLogout }) {
           <Link to="/exercise">Exercise</Link>
         </li>
       </ul>
-      <div className="logo">
-        <Link to="/">
-          <img src="https://icons.veryicon.com/png/o/food--drinks/fruits-4/banana-50.png" alt="banana icon" />
-        </Link>
-      </div>
+  
       <ul className="pagelinks">
         {appState.loginStatus ? (
           <li>

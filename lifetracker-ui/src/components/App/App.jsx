@@ -37,13 +37,6 @@ function App() {
   const [posts, setPosts] = useState([])
   const [error, setError] = useState(null)
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const { data, error } = await apiClient.listPosts()
-  //     if (data) setPosts(data.posts)
-  //     if (error) setError(error)
-  //   }
-  // })
 
   useEffect(() => {
     const checkLoggedIn = () => {
@@ -62,7 +55,6 @@ function App() {
         }
       }
     }
-    console.log("Checking if the user is in a session...")
     checkLoggedIn()
   }, [])
 
@@ -71,7 +63,6 @@ function App() {
       const token = localStorage.getItem("lifetracker_token")
       if (token !== "undefined" && token) {
         apiClient.setToken(token)
-        console.log("success! token exists")
       }  
       const { data, error } = await apiClient.fetchUserFromToken()
       
@@ -100,10 +91,10 @@ function App() {
           <Route path="/" element={<>  <LandingPage appState={appState} /></>} />
           <Route path="/login" element={<> <LoginPage setAppState={setAppState} appState={appState}/></>} />
           <Route path="/register" element={<RegistrationPage setAppState={setAppState}/>} />
-          <Route path="/activity" element={<ActivityPage  appState={appState} />} />
-          <Route path="/sleep" element={<SleepPage  appState={appState} />} />
-          <Route path="/exercise" element={<ExercisePage  appState={appState} />} />
-          <Route path="/nutrition/*" element={<NutritionPage appState={appState} />} />
+          <Route path="/activity" element={<ActivityPage appState={appState} />} />
+          <Route path="/sleep" element={<SleepPage setAppState={setAppState} appState={appState} />} />
+          <Route path="/exercise" element={<ExercisePage setAppState={setAppState} appState={appState} />} />
+          <Route path="/nutrition/*" element={<NutritionPage setAppState={setAppState} appState={appState} />} />
           <Route path="/*" element={<> <NotFound /></>} />
       </Routes>
       </BrowserRouter>
