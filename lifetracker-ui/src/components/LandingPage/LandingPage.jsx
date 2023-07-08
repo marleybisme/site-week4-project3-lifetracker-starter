@@ -13,7 +13,7 @@ export default function LandingPage({appState}) {
             <img src="https://livehealthymag.com/wp-content/uploads/2021/02/fitness-trackers-1280x854.jpg"></img>
           </div>
           <div className="hero-text">
-            <h1>Welcome Back, { appState.user.firstname }</h1>
+            <h1>Welcome Back, {appState.user.firstname }</h1>
             <h2>Helping you take back control of your world.</h2>
             <h3><a href="\activity">View Activity</a></h3>
           </div>

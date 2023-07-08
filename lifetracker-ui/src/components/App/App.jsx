@@ -23,7 +23,6 @@ function App() {
       user: {},
       loginStatus: false,
       nutrition: [],
-      sleep: [],
       exercise: []
     };
   });
@@ -33,7 +32,6 @@ function App() {
   }, [appState]);
 
   const [username, setUsername] = useState()
-  const [posts, setPosts] = useState([])
   const [error, setError] = useState(null)
 
 
@@ -74,7 +72,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem("lifetracker_token")
-    setAppState((appState) => ({...appState, user:null, loginStatus: false}))
+    setAppState((appState) => ({...appState, user:{}, loginStatus: false}))
   }
 
   const handleLogin = () => {
@@ -89,7 +87,7 @@ function App() {
         <Routes>
           <Route path="/" element={<>  <LandingPage appState={appState} /></>} />
           <Route path="/login" element={<> <LoginPage setAppState={setAppState} appState={appState}/></>} />
-          <Route path="/register" element={<RegistrationPage setAppState={setAppState}/>} />
+          <Route path="/register" element={<RegistrationPage appState={appState} setAppState={setAppState}/>} />
           <Route path="/activity" element={<ActivityPage appState={appState} />} />
           <Route path="/exercise" element={<ExercisePage setAppState={setAppState} appState={appState} />} />
           <Route path="/nutrition/*" element={<NutritionPage setAppState={setAppState} appState={appState} />} />

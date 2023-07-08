@@ -11,19 +11,18 @@ export default function NutritionPage ({setAppState, appState}) {
     }
     return (
         <>
-        <div className="record-container">
-        <button onClick={handleAddNew} className="record">Record New Nutrition</button>
-        </div>
+        
         {appState.loginStatus ? (
             <div>
+                <div className="record-container">
+        <button onClick={handleAddNew} className="record">Record New Nutrition</button>
+        </div>
                 {addNew ? (
                 <NutritionForm setAddNew={setAddNew} setAppState={setAppState} appState={appState}/>
                 ) : (
                 <NutritionFeed appState={appState}/>
                 )}
-            {/* ternary operator for add new button
-             if button is pressed, remove nutrition feed . once save button is pressed, show nutrition feed under <add item> button again*/}
-            </div>
+             </div>
         ) : (
             <div>
                 <h1>You must be logged in to view Nutrition content.</h1>

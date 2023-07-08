@@ -5,9 +5,8 @@ import apiClient from "../../../../services/apiClient";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-function RegistrationForm({ setAppState }) {
+function RegistrationForm({ setAppState, appState }) {
   const navigate = useNavigate()
-  //const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const [form, setForm] = useState({
     firstname: "",
@@ -79,11 +78,13 @@ function RegistrationForm({ setAppState }) {
       setErrors((e) => ({...e, email: data.message}))
     }
     if (data) {
-      setAppState((prevState) => ({
-        ...prevState,
-        user: data.user,
-        loginStatus: true
-      }))
+      setAppState((prevState) => {
+        return {
+          ...prevState,
+          user: data.user,
+          loginStatus: true
+        };
+      });      
       navigate("/activity")
       apiClient.setToken(data.token)
       localStorage.setItem("lifetracker_token", data.token)

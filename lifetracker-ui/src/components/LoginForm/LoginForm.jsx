@@ -38,9 +38,11 @@ function LoginForm({ setAppState, appState }) {
       password: form.password
     })
     if (error) setErrors((e) => ({ ...e, password: "Ensure all fields are complete and correct." }))
+    console.log("more coming...")
     if (data?.user !== "undefined" && data?.user) {
-      setAppState((prevState) => ({
-        ...prevState,
+      console.log(appState)
+      setAppState((appState) => ({
+        ...appState,
         user: data.user,
         loginStatus: true
       }))

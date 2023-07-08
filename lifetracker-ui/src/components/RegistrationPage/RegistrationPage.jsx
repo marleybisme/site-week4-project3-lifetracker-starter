@@ -1,11 +1,11 @@
 import * as React from "react";
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 
-function RegistrationPage({ setAppState }) {
+function RegistrationPage({ setAppState , appState}) {
 
   return (
     <div className="registration-page">
-    <RegistrationForm setAppState={setAppState}/>
+    <RegistrationForm appState={appState} setAppState={setAppState}/>
       </div>
   )
 }

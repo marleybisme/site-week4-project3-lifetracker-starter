@@ -12,11 +12,12 @@ export default function ExercisePage ({setAppState, appState}) {
     }
     return (
         <>
-        <div className="record-container">
-        <button onClick={handleAddNew} className="record">Record New Exercise</button>
-        </div>
+        
         {appState.loginStatus ? (
             <div>
+                <div className="record-container">
+        <button onClick={handleAddNew} className="record">Record New Exercise</button>
+        </div>
                 {addNew ? (
                 <ExerciseForm setAddNew={setAddNew} setAppState={setAppState} appState={appState}/>
                 ) : (
