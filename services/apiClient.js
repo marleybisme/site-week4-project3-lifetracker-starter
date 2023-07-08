@@ -57,6 +57,9 @@ class ApiClient {
     async enterNutrition(nutritionData) {
         return await this.request({endpoint: `auth/nutrition`, method: `POST`, data: nutritionData})
     }
+    async enterExercise(exerciseData) {
+        return await this.request({endpoint: `auth/exercise`, method: `POST`, data: exerciseData})
+    }
 
 }
 

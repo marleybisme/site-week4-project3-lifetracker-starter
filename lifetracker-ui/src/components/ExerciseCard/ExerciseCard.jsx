@@ -5,7 +5,7 @@ export default function ExerciseCard ({ exerciseItem, formattedDate }) {
         <div className="card-content">
           <div className="food-info">
             <div className="food-img">
-              <img src={exerciseItem.image_url ? exerciseItem.image_url : 'https://media.istockphoto.com/id/184592327/photo/empty-plate.jpg?s=170667a&w=0&k=20&c=bqE_g8-UXrq5T9naKZR2UIoX5FJU9zgk9hJP3grxVhc='} />
+              <img src='https://us.123rf.com/450wm/marsono/marsono1901/marsono190100126/114779097-vector-object-and-icons-for-sport-label-gym-badge-fitness-design-vector.jpg?ver=6' />
             </div>
             <div className="food-details">
               <h1>{exerciseItem.foodname}</h1>
@@ -14,12 +14,12 @@ export default function ExerciseCard ({ exerciseItem, formattedDate }) {
           </div>
           <div className="exercise-info">
             <div className="exercise-item">
-              <span className="exercise-label">Calories</span>
-              <span className="exercise-value">{exerciseItem.calories}</span>
+              <span className="exercise-label">Duration</span>
+              <span className="exercise-value">{exerciseItem.duration}</span>
             </div>
             <div className="exercise-item">
-              <span className="exercise-label">Quantity</span>
-              <span className="exercise-value">{exerciseItem.quantity}</span>
+              <span className="exercise-label">Intensity</span>
+              <span className="exercise-value">{exerciseItem.intensity}</span>
             </div>
             <div className="exercise-item">
               <span className="exercise-label">Created</span>

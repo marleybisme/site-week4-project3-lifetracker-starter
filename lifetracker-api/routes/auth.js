@@ -73,10 +73,18 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/nutrition", async (req, res, next) => {
-  console.log("nut bod", req.body)
   try{
     const nutrition = await User.createNutrition(req.body)
     return res.status(201).json({ nutrition })
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post("/exercise", async (req, res, next) => {
+  try{
+    const exercise = await User.createExercise(req.body)
+    return res.status(201).json({ exercise })
   } catch (err) {
     next(err)
   }

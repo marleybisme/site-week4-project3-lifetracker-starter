@@ -21,14 +21,10 @@ CREATE TABLE nutrition (
 
 CREATE TABLE exercise (
     id SERIAL PRIMARY KEY,
+    exname VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
     duration INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
     intensity INTEGER NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE TABLE sleep (
-   starttime TIMESTAMP NOT NULL,
-   endtime TIMESTAMP NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );

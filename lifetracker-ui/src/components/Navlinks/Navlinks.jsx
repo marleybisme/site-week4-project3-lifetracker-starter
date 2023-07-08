@@ -18,9 +18,6 @@ export default function Navlinks({ appState, handleLogout }) {
           <Link to="/nutrition">Nutrition</Link>
         </li>
         <li>
-          <Link to="/sleep">Sleep</Link>
-        </li>
-        <li>
           <Link to="/exercise">Exercise</Link>
         </li>
       </ul>

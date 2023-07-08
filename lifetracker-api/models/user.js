@@ -15,7 +15,6 @@ class User {
         }
     }
     static async makeNutritionEntry(user, nutritionEntry) {
-      console.log("makeNut", user, nutritionEntry)
       return {
         user_id: user.id,
         id: nutritionEntry.id,
@@ -55,6 +54,111 @@ class User {
         next(error);
       }
     }
+
+  
+    static async createNutrition(nutritionEntry) {
+      console.log("Nutrition Entry: ", nutritionEntry)
+      const credentials = nutritionEntry.credentials
+      const nutrition = nutritionEntry.nutritionEntry
+  
+      const result = await db.query(
+        `
+        INSERT INTO nutrition (
+          user_id,
+          foodname,
+          category,
+          quantity,
+          calories,
+          image_url
+        )
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING id, foodname, category, quantity, calories, user_id, image_url, created_at;
+      `,
+        [
+          credentials.id,
+          nutrition.foodname,
+          nutrition.category,
+          nutrition.quantity,
+          nutrition.calories,
+          nutrition.image_url
+        ]);
+        const entry = result.rows[0];
+        console.log("Entry:" , entry)
+        return User.makeNutritionEntry(credentials, entry);
+    }
+
+    // EXERCISE
+
+    static async makeExerciseEntry(user, exerciseEntry) {
+      return {
+        user_id: user.id,
+        id: exerciseEntry.id,
+        exname: exerciseEntry.exname,
+        category: exerciseEntry.category,
+        duration: exerciseEntry.duration,
+        intensity: exerciseEntry.intensity,
+        created_at: exerciseEntry.created_at
+      }
+    }
+     
+    static async fetchExerciseById(req, res, next) {
+      try {
+        const { id } = req.params;
+        const exercise = await User.findByPk(id);
+  
+        if (!exercise) {
+          throw new NotFoundError('Exercise not found.');
+        }
+  
+        res.json(exercise);
+      } catch (error) {
+        next(error);
+      }
+    }
+  
+    static async listExerciseForUser(req, res, next) {
+      try {
+        const userId = req.user.id;
+        const exercises = await Exercise.findAll({
+          where: { user_id: userId },
+        });
+
+        res.json(exercises);
+      } catch (error) {
+        next(error);
+      }
+    }
+
+  
+    static async createExercise(exerciseEntry) {
+      console.log("Exercise Entry: ", exerciseEntry)
+      const credentials = exerciseEntry.credentials
+      const exercise = exerciseEntry.exerciseEntry
+  
+      const result = await db.query(
+        `
+        INSERT INTO exercise (
+          user_id,
+          exname,
+          category,
+          duration,
+          intensity
+        )
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING  user_id, id, exname, category, duration, intensity, created_at;
+      `,
+        [
+          credentials.id,
+          exercise.exname,
+          exercise.category,
+          exercise.duration,
+          exercise.intensity,
+        ]);
+        const entry = result.rows[0];
+        console.log("Entry:" , entry)
+        return User.makeExerciseEntry(credentials, entry);
+    }
+
 
   static async login(credentials) {
     const requiredFields = ["email", "password"];
@@ -130,36 +234,6 @@ class User {
     return user;
   }
 
-  static async createNutrition(nutritionEntry) {
-    console.log("Nutrition Entry: ", nutritionEntry)
-    const credentials = nutritionEntry.credentials
-    const nutrition = nutritionEntry.nutritionEntry
-
-    const result = await db.query(
-      `
-      INSERT INTO nutrition (
-        user_id,
-        foodname,
-        category,
-        quantity,
-        calories,
-        image_url
-      )
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING id, foodname, category, quantity, calories, user_id, image_url, created_at;
-    `,
-      [
-        credentials.id,
-        nutrition.foodname,
-        nutrition.category,
-        nutrition.quantity,
-        nutrition.calories,
-        nutrition.image_url
-      ]);
-      const entry = result.rows[0];
-      console.log("Entry:" , entry)
-      return User.makeNutritionEntry(credentials, entry);
-  }
 }
 
 module.exports = User;
