@@ -39,14 +39,13 @@ function LoginForm({ setAppState, appState }) {
     })
     if (error) setErrors((e) => ({ ...e, password: "Ensure all fields are complete and correct." }))
     if (data?.user !== "undefined" && data?.user) {
-      console.log("User data:", data?.user)
       setAppState((prevState) => ({
         ...prevState,
         user: data.user,
         loginStatus: true
       }))
       apiClient.setToken(data.token)
-      //navigate("/activity")
+      navigate("/activity")
     }
   }
   return (

@@ -57,7 +57,6 @@ class User {
 
   
     static async createNutrition(nutritionEntry) {
-      console.log("Nutrition Entry: ", nutritionEntry)
       const credentials = nutritionEntry.credentials
       const nutrition = nutritionEntry.nutritionEntry
   
@@ -83,7 +82,6 @@ class User {
           nutrition.image_url
         ]);
         const entry = result.rows[0];
-        console.log("Entry:" , entry)
         return User.makeNutritionEntry(credentials, entry);
     }
 
@@ -155,7 +153,6 @@ class User {
           exercise.intensity,
         ]);
         const entry = result.rows[0];
-        console.log("Entry:" , entry)
         return User.makeExerciseEntry(credentials, entry);
     }
 
