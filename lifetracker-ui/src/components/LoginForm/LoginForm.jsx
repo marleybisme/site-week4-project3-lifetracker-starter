@@ -32,7 +32,7 @@ function LoginForm({ setAppState, appState }) {
   const handleOnSubmit = async (e) => {
     e.preventDefault()
     setErrors((e) => ({ ...e, form: null }))
-
+    
     const {data, error} = await apiClient.loginUser({
       email: form.email,
       password: form.password
@@ -46,7 +46,7 @@ function LoginForm({ setAppState, appState }) {
         loginStatus: true
       }))
       apiClient.setToken(data.token)
-      navigate("/activity")
+      //navigate("/activity")
     }
   }
   return (

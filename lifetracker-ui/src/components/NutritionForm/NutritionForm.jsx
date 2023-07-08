@@ -30,7 +30,6 @@ export default function NutritionForm ({setAddNew, setAppState, appState}) {
         }
         })
 
-        console.log(res)
         const {data, error} = res
             if(data?.status === 400){
         setErrors((e) => ({...e, nutrition: data.message}))
